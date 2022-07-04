@@ -1,4 +1,4 @@
-import {React,useState,useffect} from "react"
+import {React,useState} from "react"
 
 function Signup({loginUser}) {
     const [newUserData,setNewUserData] = useState({

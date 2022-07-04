@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "/get-current-user" => "sessions#get_current_user"
+  post "/login" => "sessions#login"
 end

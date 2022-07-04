@@ -18,7 +18,6 @@ function App() {
  useEffect(() => {
   const token = localStorage.getItem('jwt')
   if(token && !loggedIn) {
-    // fetch to rails backend
     fetch('/get-current-user',{
       method:"GET",
       headers:{
@@ -31,16 +30,23 @@ function App() {
     .then(user => loginUser(user))
   }
   },[loggedIn])
+
+  function logoutUser(){
+    setCurrentUser({});
+    setloggedIn(false);
+    localStorage.removeItem('jwt')
+
+  }
   
   return (
     <div className="App">
 
-      <Navbar/>
+      <Navbar loggedIn={loggedIn} logoutUser={logoutUser} />
       { loggedIn ? <h1>Welcome`${currentUser.username}`</h1> : null }
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/signup" element={<Signup loginUser={loginUser}/>}/>
-        <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<Signup loginUser={loginUser} />}/>
+        <Route path="/login" element={<Login  loginUser={loginUser} />}/>
       </Routes>
 
       

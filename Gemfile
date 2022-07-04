@@ -47,6 +47,8 @@ group :development do
 end
 
 gem "active_model_serializers", "~> 0.10.13"
+gem 'bcrypt', '~> 3.1.7'
 
 #Use Json Web Token (JWT) for token based authentication
 gem 'jwt'
+gem 'dotenv-rails', groups: [:development, :test]

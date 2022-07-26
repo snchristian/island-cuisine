@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-    before_action :authorized
+    # skip_before_action :authorized, only: [:index]
+    # before_action :authorized
     
     def encode_token(payload)
         JWT.encode(payload, ENV['JWT_SECRET'])

@@ -1,10 +1,12 @@
 import {React,useState} from "react"
+import { Button, Containter, Form, Input, Title, Wrapper } from "./SignUpStyled";
 
 function Signup({loginUser}) {
     const [newUserData,setNewUserData] = useState({
         username:"",
         email:"",
         password:"",
+        firstname:"",
     })
 
     function handleChange(event){
@@ -51,26 +53,20 @@ function Signup({loginUser}) {
 
 
   return (
-    <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='username'>Username:</label>
-                <input type={"text"} name="username" id='username' value={newUserData.username} onChange={handleChange}/>
-            </div>
-            <div>
-                <label htmlFor='email'>Email:</label>
-                <input type={"text"} name="email" id='email' value={newUserData.email} onChange={handleChange}/>
-            </div>
-            <div>
-                <label htmlFor='password'>Password:</label>
-                <input type={"password"} name="password" id='password' value={newUserData.password} onChange={handleChange}/>
-            </div>
-            <div>
-                <input type={"submit"} value="Create Account"/>
-            </div>
-            
-        </form>
-    </div>
+    <Containter>
+        <Wrapper>
+            <Title>CREATE AN ACCOUNT</Title>
+            <Form onSubmit={handleSubmit}>
+                <Input placeholder = 'User Name' type={"text"} name="username" id='username' value={newUserData.username} onChange={handleChange}/>
+                <Input placeholder = 'Email' type={"text"} name="email" id='email' value={newUserData.email} onChange={handleChange}/>
+                <Input placeholder = 'Password 'type={"password"} name="password" id='password' value={newUserData.password} onChange={handleChange}/>
+                {/* <Input placeholder = 'First Name 'type={"text"} name="first name" id='firstname' value={newUserData.firstname} onChange={handleChange}/> */}
+                <Button onClick={handleSubmit}>Create Account</Button>
+            </Form>      
+        </Wrapper>
+    </Containter>
+        
+    
   )
 }
 

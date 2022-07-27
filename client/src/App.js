@@ -5,6 +5,7 @@ import Home from './components/Static/Home';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import { Route, Routes } from "react-router-dom";
+import Recipes from './components/content/Recipes';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
@@ -42,11 +43,12 @@ function App() {
     <div className="App">
 
       <Navbar loggedIn={loggedIn} logoutUser={logoutUser} />
-      { loggedIn ? <h1>Welcome`${currentUser.username}`</h1> : null }
+      { loggedIn ? <h1>Welcome {currentUser.username}</h1> : null }
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/signup" element={<Signup loginUser={loginUser} />}/>
         <Route path="/login" element={<Login  loginUser={loginUser} />}/>
+        <Route path="/recipes" element={<Recipes/>}/>
       </Routes>
 
       

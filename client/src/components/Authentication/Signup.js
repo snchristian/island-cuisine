@@ -39,19 +39,9 @@ function Signup({loginUser}) {
         .then((r)=>r.json())
         .then((data)=>{loginUser(data.user); localStorage.setItem('jwt',data.token)} )
 
-
-
     }
     
     
-        
-    
-        
-       
-
-    
-
-
   return (
     <Containter>
         <Wrapper>

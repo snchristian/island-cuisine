@@ -5,16 +5,26 @@ import Home from './components/Static/Home';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import { Route, Routes } from "react-router-dom";
-import Recipes from './components/content/Recipes';
+import RecipeList from './components/content/RecipeList';
+import Recipe from './components/content/Recipe';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [loggedIn,setloggedIn] = useState(false)
+  const [recipes,setRecipes]= useState([])
 
  function loginUser (user){
   setCurrentUser(user);
   setloggedIn(true)
  }
+
+
+ useEffect(() =>{
+  fetch('/recipes')
+  .then(res =>res.json())
+  .then(data => (setRecipes((data))))
+
+ },[])
 
  useEffect(() => {
   const token = localStorage.getItem('jwt')
@@ -48,7 +58,8 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/signup" element={<Signup loginUser={loginUser} />}/>
         <Route path="/login" element={<Login  loginUser={loginUser} />}/>
-        <Route path="/recipes" element={<Recipes/>}/>
+        <Route path="/recipes" element={<RecipeList recipes={recipes}/>}/>
+        <Route path="/recipes/:id" element={<Recipe recipes={recipes}/>}/>
       </Routes>
 
       

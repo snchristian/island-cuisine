@@ -1,0 +1,3 @@
+class FavoriteRecipesController < ApplicationController
+
+end

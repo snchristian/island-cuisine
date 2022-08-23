@@ -1,5 +1,5 @@
 import {React, useState,useEffect} from 'react';
-import './App.css';
+import { useNavigate} from 'react-router-dom'
 import Navbar from './components/Navigation/Navbar';
 import Home from './components/Static/Home';
 import Signup from './components/Authentication/Signup';
@@ -13,10 +13,16 @@ function App() {
   const [loggedIn,setloggedIn] = useState(false)
   const [recipes,setRecipes]= useState([])
 
+  const naviagte = useNavigate()
+
  function loginUser (user){
   setCurrentUser(user);
   setloggedIn(true)
+  console.log(user)
  }
+
+ console.log(currentUser)
+ 
 
 
  useEffect(() =>{
@@ -27,25 +33,31 @@ function App() {
  },[])
 
  useEffect(() => {
-  const token = localStorage.getItem('jwt')
-  if(token && !loggedIn) {
-    fetch('/get-current-user',{
-      method:"GET",
-      headers:{
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        'Authorization': `bearer ${ localStorage.getItem('jwt') }`
-    },
+  fetch("/me", {
+  })
+    .then(res => {
+      if (res.ok) {
+        res.json().then((user) => {
+          setCurrentUser(user)
+          setloggedIn(true)
+        })
+      }
     })
-    .then(res => res.json())
-    .then(user => loginUser(user))
-  }
-  },[loggedIn])
+}, [])
 
   function logoutUser(){
-    setCurrentUser({});
-    setloggedIn(false);
-    localStorage.removeItem('jwt')
+    fetch(`/logout`, {
+      method: 'DELETE',
+    })
+      .then(res => {
+        if (res.ok) {
+          setCurrentUser(null)
+          setloggedIn(false)
+          naviagte('/')
+        }
+      })
+
+    
 
   }
   
@@ -53,16 +65,14 @@ function App() {
     <div className="App">
 
       <Navbar loggedIn={loggedIn} logoutUser={logoutUser} />
-      { loggedIn ? <h1>Welcome {currentUser.username}</h1> : null }
+      {/* { loggedIn ?   <h1>Welcome {currentUser.username}</h1> :null } */}
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route exact path="/" element={<Home/>}/>
         <Route path="/signup" element={<Signup loginUser={loginUser} />}/>
         <Route path="/login" element={<Login  loginUser={loginUser} />}/>
-        <Route path="/recipes" element={<RecipeList recipes={recipes}/>}/>
-        <Route path="/recipes/:id" element={<Recipe recipes={recipes}/>}/>
-      </Routes>
-
-      
+        <Route exact path="/recipes" element={<RecipeList recipes={recipes}/>}/>
+        <Route path="/recipes/:id" element={<Recipe recipes={recipes} currentUser={currentUser}/>}/>
+      </Routes>   
     </div>
   );
 }

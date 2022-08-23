@@ -24,20 +24,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1
-  def update
-    if @recipe.update(recipe_params)
-      render json: @recipe
-    else
-      render json: @recipe.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /recipes/1
-  def destroy
-    @recipe.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe

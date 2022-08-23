@@ -14,7 +14,7 @@ function Signup({ loginUser }) {
   })
 
   function handleChange(event) {
-    setNewUserData({
+    setNewUserData({  
       ...newUserData,
       [event.target.name]: event.target.value
     })

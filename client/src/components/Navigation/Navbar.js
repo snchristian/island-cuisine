@@ -46,7 +46,7 @@ function Navbar({loggedIn,logoutUser}) {
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static" color="inherit">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{
+        <Typography variant="h6"  sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
@@ -55,8 +55,10 @@ function Navbar({loggedIn,logoutUser}) {
               color: 'inherit',
               textDecoration: 'none',
               flexGrow:1
-            }}>
-          Island Cusine
+            }}
+              to ="/" component={ Link }
+            >
+              ISLAND CUISINE
         </Typography>
         {loggedIn ? loggedInLinks() : loggedOutLinks()}
       </Toolbar>

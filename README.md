@@ -1,24 +1,25 @@
-# README
+#  :bento: Island Cuisine
+This simple backend works with the Island Cusine App to receive requests and direct them along the right network path.The backend was designed using Ruby on Rails and PostgreSQL.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## :computer: how to use
 
-Things you may want to cover:
+-  Fork and clone this repository
 
-* Ruby version
+-   `bundle install`
 
-* System dependencies
+-   `run rails db:migrate`
 
-* Configuration
+-   `run rails  db:seed`
 
-* Database creation
+-   `run rails s`
 
-* Database initialization
 
-* How to run the test suite
+-  Follow direction to get the frontend  started. This will run on port [http://localhost:4000](http://localhost:4000).
 
-* Services (job queues, cache servers, search engines, etc.)
+## :file_folder: Bulit With
+- Ruby  2.7.4
+- Sintra API 
+- SQlite3 3.31.1
 
-* Deployment instructions
 
-* ...
+

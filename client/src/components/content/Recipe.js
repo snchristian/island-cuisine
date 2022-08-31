@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Containter, Icon, Image, Ingredients, Instructions, RecipeContent, RecipePage, Wrapper} from './RecipeStyle'
+import { Containter, Icon, Image, Ingredients, Instructions, RecipeContent, SingleRecipePage, Wrapper} from './RecipeStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock,faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { faClock,faUserGroup,faBowlFood} from '@fortawesome/free-solid-svg-icons'
 import Comments from './comments/Comments'
 import { CommentContainter } from './comments/CommentStyle'
 
 
 
-function Recipe({ recipes, currentUser}) {
+function Recipe({ recipes, errors, setErrors}) {
 
   const [recipeSingle, setRecipeSingle] = useState({})
   const { id } = useParams();
+
+  console.log(recipeSingle)
+   console.log(typeof(recipeSingle.ingredients))
+   
+
 
   useEffect(() => {
     if (recipes.length > 0) {
@@ -21,7 +26,6 @@ function Recipe({ recipes, currentUser}) {
 
   }, [id, recipes,recipeSingle])
 
-  console.log(id)
 
 
   function render(){
@@ -47,14 +51,34 @@ function Recipe({ recipes, currentUser}) {
      return ingredients
   }
 
-  console.log(recipes)
-  console.log(recipeSingle.id)
+  function instructions (){
+    var step = 0
 
-  
+    if (recipeSingle.instruction === undefined){
+      return null
+    }
+    else{
+     return(
+      recipeSingle.instruction.map(instruction => (
+        <>
+        <header className='header'>
+        <p className='step'>Step {step += 1}</p>
+        <div className='line'></div>
+      </header>
+      <p className='instructions'>{instruction}</p>
+        </>
+     ) 
+      
+      
+      )
+    )
+    }
+    
+  }
 
   return (
     <Containter>
-      <RecipePage>
+      <SingleRecipePage>
         <Wrapper>
           <Image src={recipeSingle.image} alt={recipeSingle.name} />
           <div>
@@ -64,12 +88,17 @@ function Recipe({ recipes, currentUser}) {
               <div>
                 <FontAwesomeIcon className='fontawesome' icon={faClock} />
                 <h5>cooking time</h5>
-                <p>{recipeSingle.cooking_time}.</p>
+                <p>{recipeSingle.cooking_time}</p>
               </div>
               <div>
                 <FontAwesomeIcon className='fontawesome' icon={faUserGroup} />
                 <h5>servings</h5>
-                <p>{recipeSingle.servings}.</p>
+                <p>{recipeSingle.servings}</p>
+              </div>
+              <div>
+                <FontAwesomeIcon className='fontawesome' icon={faBowlFood} />
+                <h5>cuisine</h5>
+                <p>{recipeSingle.cuisine}</p>
               </div>
             </Icon>
           </div>
@@ -78,25 +107,7 @@ function Recipe({ recipes, currentUser}) {
           <Instructions>
             <h4>Instructions</h4>
             <div className='single'>
-              <header className='header'>
-                <p className='step'>Step 1</p>
-                <div className='line'></div>
-              </header>
-              <p className='instructions'>Combine cornstarch and water in a small bowl. Stir until cornstarch is dissolved then set aside.</p>
-            </div>
-            <div className='single'>
-              <header className='header'>
-                <p className='step'>Step 2</p>
-                <div className='line'></div>
-              </header>
-              <p className='instructions'>Combine cornstarch and water in a small bowl. Stir until cornstarch is dissolved then set aside.</p>
-            </div>
-            <div className='single'>
-              <header className='header'>
-                <p className='step'>Step 3</p>
-                <div className='line'></div>
-              </header>
-              <p className='instructions'>Combine cornstarch and water in a small bowl. Stir until cornstarch is dissolved then set aside.</p>
+              {instructions()}
             </div>
           </Instructions>
           <Ingredients>
@@ -105,10 +116,10 @@ function Recipe({ recipes, currentUser}) {
           </Ingredients>
           <CommentContainter>
           <div className='line'></div>
-        <Comments  recipe_id ={id} currentUser={currentUser}></Comments>
+        <Comments  recipe_id ={id} errors={errors} setErrors={setErrors} ></Comments>
         </CommentContainter>
         </RecipeContent>        
-      </RecipePage>
+      </SingleRecipePage>
     </Containter>
   )
 }

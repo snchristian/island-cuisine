@@ -7,23 +7,20 @@ import Login from './components/Authentication/Login';
 import { Route, Routes } from "react-router-dom";
 import RecipeList from './components/content/RecipeList';
 import Recipe from './components/content/Recipe';
+import Favorites from './components/content/Favorites';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [loggedIn,setloggedIn] = useState(false)
   const [recipes,setRecipes]= useState([])
+  const [errors, setErrors] = useState([])
 
   const naviagte = useNavigate()
 
  function loginUser (user){
   setCurrentUser(user);
   setloggedIn(true)
-  console.log(user)
  }
-
- console.log(currentUser)
- 
-
 
  useEffect(() =>{
   fetch('/recipes')
@@ -56,22 +53,19 @@ function App() {
           naviagte('/')
         }
       })
-
-    
-
   }
   
   return (
     <div className="App">
 
-      <Navbar loggedIn={loggedIn} logoutUser={logoutUser} />
-      {/* { loggedIn ?   <h1>Welcome {currentUser.username}</h1> :null } */}
+      <Navbar loggedIn={loggedIn} logoutUser={logoutUser} currentUser={currentUser} />
       <Routes>
         <Route exact path="/" element={<Home/>}/>
-        <Route path="/signup" element={<Signup loginUser={loginUser} />}/>
-        <Route path="/login" element={<Login  loginUser={loginUser} />}/>
-        <Route exact path="/recipes" element={<RecipeList recipes={recipes}/>}/>
-        <Route path="/recipes/:id" element={<Recipe recipes={recipes} currentUser={currentUser}/>}/>
+        <Route path="/signup" element={<Signup loginUser={loginUser} errors={errors} setErrors={setErrors}/>}/>
+        <Route path="/login" element={<Login  loginUser={loginUser}errors={errors} setErrors={setErrors}/>}/>
+        <Route exact path="/recipes" element={<RecipeList recipes={recipes} setRecipes={setRecipes} errors={errors} setErrors={setErrors}/>}/>
+        <Route path="/recipes/:id" element={<Recipe recipes={recipes} errors={errors} setErrors={setErrors} />} />
+        <Route path="/favorites" element={<Favorites/>}/>
       </Routes>   
     </div>
   );

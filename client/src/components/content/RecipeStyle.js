@@ -1,18 +1,15 @@
 import styled from "styled-components";
 
-export const RecipePage = styled.div`
-
+export const SingleRecipePage = styled.div`
     width: 90vw;
     max-width: 1120px;
     margin: 0 auto;
     padding-top: 2rem;
     min-height: calc(100vh - (6rem + 4rem));
-    
-
 `
 
 export const Containter = styled.div`
-   
+
     background: #f8fafc;
     font-weight: 400;
     line-height: 1.75;
@@ -61,7 +58,7 @@ export const Image = styled.img`
 `
 export const Icon = styled.div`
 display:grid;
-grid-template-columns:repeat(2, 1fr);
+grid-template-columns:repeat(3, 1fr);
 gap:1rem;
 margin: 2rem 0;
 text-align: center;

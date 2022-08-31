@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 import Comment from './Comment'
 import CommentForm from './CommentForm'
 import { Wrapper } from './CommentStyle'
 
-function Comments({ recipe_id, currentUser }) {
+
+function Comments({ recipe_id, errors, setErrors }) {
   const [recipeComments, setRecipeComments] = useState([])
   const [activeComment, setActiveComment] = useState(null)
 
-    console.log(recipe_id)
-
-
-
   useEffect(() => {
-   
-      fetch(`/recipes/${recipe_id}/comments`)
+
+    fetch(`/recipes/${recipe_id}/comments`)
       .then(res => res.json())
       .then(comments => setRecipeComments(comments))
 
@@ -35,16 +35,15 @@ function Comments({ recipe_id, currentUser }) {
       body: JSON.stringify(comment)
     }).then(res => {
       if (res.ok) {
-        return res.json()
+        return res.json().then(usercomment => {
+          setRecipeComments([...recipeComments, usercomment])
+        })
+
       }
       else {
-        res.json().then(errors => Promise.reject(errors))
+        res.json().then(errors => setErrors(errors.error))
       }
-    }).then(usercomment => {
-      setRecipeComments([...recipeComments, usercomment])
-
     })
-
   }
 
   function handleDeleteComment(commentId) {
@@ -62,65 +61,76 @@ function Comments({ recipe_id, currentUser }) {
 
   }
 
-  function handleEditComment (body,commentId){
+  function handleEditComment(body, commentId) {
     const comment = {
       body: body
     }
 
-
-    fetch(`/comments/${commentId}`,{
-      method: "PATCH", 
+    fetch(`/comments/${commentId}`, {
+      method: "PATCH",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(comment)
     })
-    .then(res => {
-      if (res.ok) {
-        const updatedComments = recipeComments.map(comment =>{
-          if (comment.id === commentId){
-            return {...comment, body:body}
-          }
-          return comment
-        })
-        setRecipeComments(updatedComments)
-        setActiveComment(null)
-      }
-    })
-
-
+      .then(res => {
+        if (res.ok) {
+          const updatedComments = recipeComments.map(comment => {
+            if (comment.id === commentId) {
+              return { ...comment, body: body }
+            }
+            return comment
+          })
+          setRecipeComments(updatedComments)
+          setActiveComment(null)
+        }
+      })
   }
 
 
+  function renderErrors() {
+    if (errors.length > 0) {
+      return (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="error" onClose={() => setErrors([])}>
+            <AlertTitle>Error</AlertTitle>
+            <strong>{errors}</strong>
+          </Alert>
+        </Stack>
+      );
+    }
+  }
 
-
-  const comment = recipeComments.map(comment => (
-    <ol className=' commentlist'>
-      <Comment
-     key={comment.id} 
-    comment={comment} 
-    currentUser={currentUser} 
-    handleDeleteComment={handleDeleteComment}  
-    handleEditComment={handleEditComment}
-    activeComment ={activeComment}
-    setActiveComment={setActiveComment}
-    />
-    </ol>
-    
-  ))
-
+  function renderComments() {
+    if (recipeComments.length > 0) {
+      return recipeComments.map(comment => (
+        <ol key={comment.id} className=' commentlist'>
+          <Comment
+            comment={comment}
+            handleDeleteComment={handleDeleteComment}
+            handleEditComment={handleEditComment}
+            activeComment={activeComment}
+            setActiveComment={setActiveComment}
+          />
+        </ol>
+      ))
+    }
+    else {
+      return null
+    }
+  }
 
   return (
     <Wrapper>
       <div className='comment-form'>
         <h3>Comments</h3>
-      <div> Write Comments</div>
-      <CommentForm handleSubmit={addComment} />
+        <div> Write Comments</div>
+        <CommentForm handleSubmit={addComment} />
+        {renderErrors()}
       </div>
-      {comment}
+      {renderComments()}
     </Wrapper>
-    
   )
 }
 

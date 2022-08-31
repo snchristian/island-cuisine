@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
+export const RecipePage = styled.div`
+    margin-left:2rem;
+    margin-bottom:2rem;
+
+`
+
 export const Containter = styled.div`
-    margin-top:20px;
     height:30vh;
     background:url("https://wblodgeroatan.com/wp-content/uploads/2019/04/Plato17.jpg") center/cover no-repeat;
     margin-bottom: 2rem;
@@ -14,8 +19,7 @@ export const Wrapper = styled.div`
     height: 100%;
     top: 0%;
     left: 0%;
-    background:rgba(0,0,0,0.4)
-
+    background:rgba(0,0,0,0.4);
 `
 
 export const Title = styled.h1`

@@ -1,8 +1,8 @@
 import { React, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import { Containter, Form, FormContainer, Wrapper } from "./Login_Signin_Style"
+import { Containter, Form, FormContainer, Wrapper } from "./LoginStyle"
 
-function Login({ loginUser }) {
+function Login({ loginUser, errors, setErrors }) {
 
   const naviagte = useNavigate()
 
@@ -34,12 +34,29 @@ function Login({ loginUser }) {
       },
       body: JSON.stringify(newUser),
     })
-      .then((r) => r.json())
-      .then((data) => { loginUser(data); naviagte('/recipes') })
-
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => {
+            loginUser(data); naviagte('/recipes')
+          })
+        } else {
+          res.json().then(errors => {
+            setErrors(errors.error)
+          })
+        }
+      })
 
   }
 
+  function renderErrors() {
+
+    if (errors === []) {
+      return null
+    }
+    else {
+      return <p>{errors}</p>
+    }
+  }
 
   return (
     <Containter>
@@ -56,6 +73,7 @@ function Login({ loginUser }) {
             <div>
               <input className="submit" type={"submit"} value="Login" />
             </div>
+            {renderErrors()}
           </Form>
         </FormContainer>
       </Wrapper>

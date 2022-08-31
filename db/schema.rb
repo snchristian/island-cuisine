@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_052043) do
     t.string "name"
     t.string "image"
     t.string "description"
+    t.string "instruction", array: true
     t.string "cooking_time"
     t.integer "servings"
     t.string "cuisine"

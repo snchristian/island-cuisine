@@ -1,25 +1,34 @@
 class FavoriteRecipesController < ApplicationController
+    before_action :authentication
+    before_action :set_favorite_recipe, only: %i[destroy]
+
+    def index
+        @favorite_recipes = current_user.favorite_recipes
+
+        render json: @favorite_recipes
+    end
     
   def create
-        @favortie_recipes =  current_user.FavoriteRecipe.new(favorites_params)
+        @favorite_recipes =  current_user.favorite_recipes.new(favorites_params)
 
-        if @favortie_recipes.save
-            render json: @favortie_recipes, status: :created
+        if @favorite_recipes.save
+            render json: @favorite_recipes, status: :created
         else
-            render json: @favortie_recipes.errors, status: :unprocessable_entity
+            render json: @favorite_recipes.errors, status: :unprocessable_entity
         end
     end
 
     def destroy
+        @favorite_recipe.destroy
     end
 
     private
+    def set_favorite_recipe
+        @favorite_recipe = FavoriteRecipe.find(params[:id]) 
+      end
 
-    # def set_recipe
-    #     @recipe = Recipe.find(params[:id])
-    # end
 
     def favorites_params
-        params.require(:favortie_recipes).permit(:recipe_id)
+        params.permit(:recipe_id)
     end
 end

@@ -1,7 +1,8 @@
 class User < ApplicationRecord
     has_secure_password 
-    has_many :favortie_recipes
-    has_many :recipes, through: :favortie_recipes
+    
+    has_many :favorite_recipes
+    has_many :recipes, through: :favorite_recipes
 
     has_many :comments
     has_many :recipes, through: :comments

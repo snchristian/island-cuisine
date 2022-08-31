@@ -50,5 +50,10 @@ input{
     cursor: pointer;
     background-color:RoyalBlue;
  }
+
+ p{
+  color:red;
+  background-color:white;
+ }
 `
 

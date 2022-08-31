@@ -1,31 +1,28 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Form } from "./CommentStyle";
-function CommentForm({handleSubmit,initalComment=''}) {
-    const [body,setbody] = useState ([initalComment])
+function CommentForm({ handleSubmit, initalComment = '' }) {
+  const [body, setbody] = useState([initalComment])
 
-    function onSubmit (event){
-        event.preventDefault();
-        setbody("")
-        handleSubmit(body)
-    }
-        
-    function handleChange(event){
-        setbody(event.target.value)
+  function onSubmit(event) {
+    event.preventDefault();
+    setbody("")
+    handleSubmit(body)
+  }
 
-    }
-
-
+  function handleChange(event) {
+    setbody(event.target.value)
+  }
 
   return (
     <Form onSubmit={onSubmit}>
-        <textarea 
+      <textarea
         name='body'
         value={body}
-        onChange ={handleChange}
-        />
-        <input  className='submit' type='submit' value="Post"/>
+        onChange={handleChange}
+      />
+      <input className='submit' type='submit' value="Post" />
     </Form>
-    
+
   )
 }
 

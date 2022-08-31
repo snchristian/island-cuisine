@@ -1,7 +1,7 @@
 #  :bento: Island Cuisine
 This simple backend works with the Island Cusine App to receive requests and direct them along the right network path.The backend was designed using Ruby on Rails and PostgreSQL.
 
-## :computer: how to use
+## :computer: How To Use
 
 -  Fork and clone this repository
 
@@ -18,8 +18,8 @@ This simple backend works with the Island Cusine App to receive requests and dir
 
 ## :file_folder: Bulit With
 - Ruby  2.7.4
-- Sintra API 
-- SQlite3 3.31.1
+- PosTgreSQL
+- Rails 7.0.3
 
 
 

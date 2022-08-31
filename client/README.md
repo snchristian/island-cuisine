@@ -14,7 +14,7 @@ This simple application lets users view a library of recipes, sign up for an acc
 
 ## :computer: Installation
 
--  Fork and clone this repository
+-   Navigate Into Client File
 
 -   `run npm install `
 

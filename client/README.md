@@ -1,8 +1,7 @@
 #  :bento: Island Cuisine
 Island Cuisine is a Recipe App that allows users to explore different cuisine from several islands worldwide. This project aims to showcase my skills in Ruby on Rails.
 
-## :page_facing_up:
-
+## :page_facing_up: Overview
 This simple application lets users view a library of recipes, sign up for an account, favorite a recipe, and leave comments. This was accomplished using Ruby on Rails, PostgreSQL, Material UI, and React. In the future, I hope to allow users to search through recipes and add categories. 
 
 ## :sparkler: Features
@@ -14,7 +13,7 @@ This simple application lets users view a library of recipes, sign up for an acc
 
 ## :computer: Installation
 
--   Navigate Into Client File
+-   Navigate Into Client File `cd client`
 
 -   `run npm install `
 

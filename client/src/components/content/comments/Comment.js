@@ -1,5 +1,5 @@
 import CommentForm from './CommentForm'
-import { User } from './CommentStyle'
+import { CommentBody, User } from './CommentStyle'
 import Avatar from '@mui/material/Avatar';
 import { lightBlue } from '@mui/material/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,11 +28,13 @@ function Comment({ comment, handleDeleteComment, handleEditComment, activeCommen
           </span>
         </div>
       </User>
-      {!isEditing && <p className='comment-body'>{comment.body}</p>}
-      {isEditing && (
+      <CommentBody>
+        {!isEditing && <p className='comment-body'>{comment.body}</p>}
+        {isEditing && (
         <CommentForm   type='submit' value="Update"  initalComment={comment.body} handleSubmit={(body) => handleEditComment(body, comment.id)} />
-      )}
-    </li>
+          )}
+      </CommentBody>
+      </li>
   )
 }
 

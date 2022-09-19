@@ -13,11 +13,7 @@ function Recipe({ recipes, errors, setErrors}) {
   const [recipeSingle, setRecipeSingle] = useState({})
   const { id } = useParams();
 
-  console.log(recipeSingle)
-   console.log(typeof(recipeSingle.ingredients))
-   
-
-
+  
   useEffect(() => {
     if (recipes.length > 0) {
       const recipe = recipes.find(r => r.id.toString() === id)
@@ -25,7 +21,6 @@ function Recipe({ recipes, errors, setErrors}) {
     }
 
   }, [id, recipes,recipeSingle])
-
 
 
   function render(){
@@ -67,9 +62,7 @@ function Recipe({ recipes, errors, setErrors}) {
       </header>
       <p className='instructions'>{instruction}</p>
         </>
-     ) 
-      
-      
+     )   
       )
     )
     }

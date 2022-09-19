@@ -105,6 +105,11 @@ export const User = styled.div`
           }
     }
 
- 
     
+`
+
+export const CommentBody = styled.div`
+.comment-body{
+    margin-left:4rem;
+    }
 `

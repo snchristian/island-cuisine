@@ -4,6 +4,7 @@ import { Containter, Form, FormContainer, Wrapper } from "./LoginStyle"
 function Signup({ loginUser, setErrors, errors }) {
 
   const naviagte = useNavigate()
+  
 
 
   const [newUserData, setNewUserData] = useState({
@@ -57,11 +58,12 @@ function Signup({ loginUser, setErrors, errors }) {
 
   function renderErrors (){
 
-    if(errors === []){
-      return null
+
+    if(errors.length > 0){
+      return  errors.map(error => <p key={error}>{error}</p>)
     }
     else{
-     return  errors.map(error => <p key={error}>{error}</p>)
+     return null
     }
   }
 

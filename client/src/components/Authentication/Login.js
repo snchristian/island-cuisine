@@ -50,12 +50,10 @@ function Login({ loginUser, errors, setErrors }) {
 
   function renderErrors() {
 
-    if (errors === []) {
-      return null
-    }
-    else {
+    if(errors.length > 0){
       return <p>{errors}</p>
     }
+
   }
 
   return (

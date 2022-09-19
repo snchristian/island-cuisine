@@ -9,6 +9,7 @@ import RecipeList from './components/content/RecipeList';
 import Recipe from './components/content/Recipe';
 import Favorites from './components/content/Favorites';
 
+
 function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [loggedIn,setloggedIn] = useState(false)
@@ -16,7 +17,7 @@ function App() {
   const [errors, setErrors] = useState([])
 
   const naviagte = useNavigate()
-
+  
  function loginUser (user){
   setCurrentUser(user);
   setloggedIn(true)
@@ -65,7 +66,7 @@ function App() {
         <Route path="/login" element={<Login  loginUser={loginUser}errors={errors} setErrors={setErrors}/>}/>
         <Route exact path="/recipes" element={<RecipeList recipes={recipes} setRecipes={setRecipes} errors={errors} setErrors={setErrors}/>}/>
         <Route path="/recipes/:id" element={<Recipe recipes={recipes} errors={errors} setErrors={setErrors} />} />
-        <Route path="/favorites" element={<Favorites/>}/>
+        <Route path="/favorites" element={<Favorites setRecipes={setRecipes} recipes={recipes}/>}/>
       </Routes>   
     </div>
   );

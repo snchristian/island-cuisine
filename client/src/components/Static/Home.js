@@ -10,7 +10,7 @@ function Home() {
     <Recipestyle>
       <Text>
         <h1>ISLAND CUISINE</h1>
-        <p>Wanting to mix up your family dinner ? Just came back from your vacation and missing some Tropical cuisine </p>
+        <p>Wanting to mix up your family dinner? Just came back from your vacation and missing some Tropical cuisine? Why not click below and explore some Island cuisine </p>
         <button onClick={() => naviagte(`/recipes`)}>Indulge Your TasteBud</button>
       </Text>
     </Recipestyle>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import RecipeCard from './RecipeCard';
@@ -11,7 +11,7 @@ import { Containter, RecipePage, Title, Wrapper } from './RecipesPageStyle';
 function Recipes({ recipes, setRecipes, errors, setErrors }) {
 
   function favoritedRecipe(recipe_id) {
-
+   
     fetch('/favorite_recipes', {
       method: 'POST',
       headers: {
@@ -23,28 +23,28 @@ function Recipes({ recipes, setRecipes, errors, setErrors }) {
     })
       .then(res => {
         if (res.ok) {
-          res.json()
-            .then(favoriteRecipe => {
-
-              const updatedRecipes = recipes.map(recipe => {
-                if (recipe.id === recipe_id) {
-
-                  return {
-                    ...recipe,
-                    favorited_recipe: favoriteRecipe
-                  }
-
-                }
-                else {
-                  return recipe
-                }
-              })
-              setRecipes(updatedRecipes)
-            })
+         return res.json()
         }
         else {
           res.json().then(errors => setErrors(errors.error))
         }
+      })
+      .then(favoriteRecipe => {
+
+        const updatedRecipes = recipes.map(recipe => {
+          if (recipe.id === recipe_id) {
+
+            return {
+              ...recipe,
+              favorited_recipe: favoriteRecipe
+            }
+
+          }
+          else {
+            return recipe
+          }
+        })
+        setRecipes(updatedRecipes)
       })
   }
 
@@ -90,6 +90,8 @@ function Recipes({ recipes, setRecipes, errors, setErrors }) {
       ); 
     }
   }
+
+ 
 
   return (
     <>

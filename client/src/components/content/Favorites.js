@@ -6,7 +6,7 @@ import { Containter } from './FavoritesStyle';
 import { RecipePage, Title, Wrapper } from './RecipesPageStyle';
 
 
-function Favorites() {
+function Favorites({setRecipes,recipes}) {
   const [favoriteRecipes, setFavoriteRecipe] = useState([])
 
   useEffect(() => {
@@ -19,7 +19,6 @@ function Favorites() {
   function unfavoriteRecipe(recipe_id) {
     const favoriteRecipe = favoriteRecipes.map(favorite => favorite.recipe)
     const recipe = favoriteRecipe.find(recipe => recipe.id === recipe_id)
-    console.log(recipe)
 
     fetch(`/favorite_recipes/${recipe.favorited_recipe.id}`, {
 
@@ -29,6 +28,20 @@ function Favorites() {
         if (res.ok) {
           const updatedRecipes = favoriteRecipes.filter(favoriteRecipe => favoriteRecipe.recipe.id !== recipe_id)
           setFavoriteRecipe(updatedRecipes)
+
+          const updatedRecipe = recipes.map(recipe => {
+            if (recipe.id === recipe_id) {
+              return {
+                ...recipe,
+                favorited_recipe: null
+              }
+            }
+            else {
+              return recipe
+            }
+          })
+          setRecipes(updatedRecipe)
+
         }
       })
   }
@@ -49,7 +62,7 @@ function Favorites() {
       <RecipePage>
         <Box style={{ marginTop: "20px" }}>
           <Grid container spacing={2}>
-           {favoriteRecipes.length< 0 ? <p>Add a Recipe to Favorites</p>:{favoriteRecipe}}
+           {favoriteRecipes.length < 0 ? <h1>Add a Recipe to Favorites</h1>:favoriteRecipe}
           </Grid>
         </Box>
       </RecipePage>

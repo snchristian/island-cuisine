@@ -4,9 +4,10 @@ Rails.application.routes.draw do
 resources :comments
 resources :favorite_recipes
 resources :recipes, only:[:show, :index, :create] do
-  resources :comments, only:[:index,:create, :update, :delete]
+  resources :comments, only:[:index,:create]
 end
 resources :users 
+resources :comments, only:[:update,:delete]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

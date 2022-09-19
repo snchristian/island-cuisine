@@ -9,7 +9,7 @@ This simple application lets users view a library of recipes, sign up for an acc
 - Recipe Page - List Recipes.
 - Favorites Page - All Favorited Recipes.
 - Comments - The user can add, delete, and update a comment.
-- Login and Sign up Page - The user can Sign up for an account   and Login in to retrieve information. 
+- Login and Sign up Page - The user can Sign up for an account and Login in to retrieve information. 
 
 ## :computer: Installation
 
